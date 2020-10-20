@@ -1,0 +1,20 @@
+{
+  "name": "alura-timer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "reload": "live-reload ./ --port 35729"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^10.1.4",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "live-reload": "^1.1.0"
+  }
+}

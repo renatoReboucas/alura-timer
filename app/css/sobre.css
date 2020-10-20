@@ -1,0 +1,21 @@
+body{
+    background: #151419;
+    
+}
+a,p,h1,h2{
+    color: #FFF;
+}
+.container{
+    text-align: center;
+}
+
+.container p {
+    margin: 5px 0;
+}
+
+.container img{
+    width: 50px;
+}
+#link-fechar{
+    color:red
+}

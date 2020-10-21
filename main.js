@@ -1,6 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const { ipcRenderer } = require('electron/renderer');
-const data = require('./data')
+const data = require('./data');
+const { geraTrayTemplate } = require('./tamplate');
+
+let tray = null
 
 app.on('ready', () => {
   let mainWindow = new BrowserWindow({
@@ -10,6 +13,13 @@ app.on('ready', () => {
       nodeIntegration: true
     }
   })
+  //icon 16x16
+  tray = new Tray(__dirname + '/app/img/icon-tray.png')
+  let template = geraTrayTemplate()
+  //gera menu
+  let trayMenu = Menu.buildFromTemplate(template)
+  //seta itens do menu
+  tray.setContextMenu(trayMenu)
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   // mainWindow.webContents.openDevTools()

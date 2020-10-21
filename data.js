@@ -35,8 +35,15 @@ module.exports = {
         console.log("DEU RUIM adcionaTempoAoCurso", error);
       });
   },
-  pegaDados(curso){
+  pegaDados(curso) {
     let path = __dirname + "/data/" + curso + ".json";
-    return jsonfile.readFile(path)
+    return jsonfile.readFile(path);
+  },
+  pegaNomeDosCursos(){
+    let arquivos =  fs.readdirSync(__dirname + '/data')
+   let cursos =  arquivos.map((arquivo) => {
+      return arquivo.substring(0, arquivo.lastIndexOf('.'))
+    })
+    return cursos
   }
 };

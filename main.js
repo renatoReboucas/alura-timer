@@ -1,17 +1,18 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { ipcRenderer } = require('electron/renderer');
+const data = require('./data')
 
 app.on('ready', () => {
   let mainWindow = new BrowserWindow({
-    width: 900,
-    height: 720,
+    width: 800,
+    height: 600,
     webPreferences:{
       nodeIntegration: true
     }
   })
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 })
 
 app.on('window-all-closed', () => {
@@ -44,4 +45,9 @@ ipcMain.on("abrir-janela-sobre", () => {
 
 ipcMain.on("fechar-janela-sobre", () => {
   sobreWindow.close()
+});
+
+ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
+  // console.log(`O curso ${curso} foi estudado por ${tempoEstudado}`);
+  data.salvaDados(curso,tempoEstudado)
 });

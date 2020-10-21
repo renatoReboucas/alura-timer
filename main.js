@@ -1,25 +1,28 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const { ipcRenderer } = require('electron/renderer');
 const data = require('./data');
-const { geraTrayTemplate } = require('./tamplate');
+const { geraTrayTemplate, adicionaCursoNoTray } = require("./tamplate");
 
 let tray = null
-
+let mainWindow = null
 app.on('ready', () => {
-  let mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    webPreferences:{
-      nodeIntegration: true
-    }
-  })
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   //icon 16x16
-  tray = new Tray(__dirname + '/app/img/icon-tray.png')
-  let template = geraTrayTemplate()
-  //gera menu
-  let trayMenu = Menu.buildFromTemplate(template)
+  tray = new Tray(__dirname + "/app/img/icon-tray.png");
+  let template = geraTrayTemplate(mainWindow);
+  //gera menu tray
+  let trayMenu = Menu.buildFromTemplate(template);
   //seta itens do menu
-  tray.setContextMenu(trayMenu)
+  tray.setContextMenu(trayMenu);
+
+  //envia os dados pro restante do programa
+  // mainWindow.send('curso-trocado',)
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   // mainWindow.webContents.openDevTools()
@@ -60,4 +63,12 @@ ipcMain.on("fechar-janela-sobre", () => {
 ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
   // console.log(`O curso ${curso} foi estudado por ${tempoEstudado}`);
   data.salvaDados(curso,tempoEstudado)
+});
+
+ipcMain.on("curso-adicionado", (event, novoCurso) => {
+  let novoTemplate = adicionaCursoNoTray(novoCurso, mainWindow);
+  //gera menu tray
+  let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
+  //seta itens do menu
+  tray.setContextMenu(novoTrayMenu);
 });

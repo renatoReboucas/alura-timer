@@ -49,14 +49,22 @@ btnPlay.addEventListener('click', () => {
 
 //recebe os dados da main
 ipcRenderer.on('curso-trocado', (event, nomeCurso) => {
+    timer.parar(curso.textContent)
     data.pegaDados(nomeCurso)
     .then(dados => {
         tempo.textContent = dados.tempo;
+    }).catch(error => {
+      console.log('O curso ainda não possui um JSON');
+      tempo.textContent = '00:00:00'
     })
     curso.textContent = nomeCurso;
 })
 
 btnAdc.addEventListener('click', () => {
+  if(campoAdicionar.value == ''){
+    console.log('Não posso adicionar um curso com o nome vazio');
+    return;
+  }
    let novoCurso =  campoAdicionar.value
    curso.textContent = novoCurso
    tempo.textContent = "00:00:00"

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut } = require('electron');
 const { ipcRenderer } = require('electron/renderer');
 const data = require('./data');
 const {
@@ -27,6 +27,10 @@ app.on('ready', () => {
 
   //envia os dados pro restante do programa
   // mainWindow.send('curso-trocado',)
+
+  globalShortcut.register("CmdOrCtrl+Shift+S", () =>{
+    mainWindow.send('atalho-iniciar-parar')
+  })
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   // mainWindow.webContents.openDevTools()

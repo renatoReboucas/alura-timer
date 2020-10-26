@@ -32,27 +32,33 @@ module.exports = {
   geraMenuPrincipalTemplate(app){
     let templateMenu = [
       {
-        label: 'View',
-        submenu: [
-          {role: 'reload'},
-          {role: 'toggledevtools'}
-      ]
+        label: "View",
+        submenu: [{ role: "reload" }, 
+        { 
+          role: "toggledevtools",
+          accelerator: "CmdOrCtrl+D",
+        }
+        ],
       },
       {
-        label: 'Window',
+        label: "Window",
         submenu: [
-          {role: 'minimize'},
-          {role: 'close'},
-        ]
+          {
+            role: "minimize",
+            accelerator: "Alt+M",
+          },
+          { role: "close" },
+        ],
       },
       {
-        label: "Meu menu",
+        label: "Sobre",
         submenu: [
-          { 
-            label: "Sobre o Alura Timer", 
+          {
+            label: "Sobre o Alura Timer",
             click: () => {
               ipcMain.emit("abrir-janela-sobre");
-            }
+            },
+            accelerator: "CmdOrCtrl+I",
           },
         ],
       },

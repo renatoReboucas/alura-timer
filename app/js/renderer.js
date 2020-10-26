@@ -55,3 +55,10 @@ btnAdc.addEventListener('click', () => {
    campoAdicionar.value = ''
    ipcRenderer.send('curso-adicionado', novoCurso)
 })
+
+//recebe dados da main atraves de um atalho
+ipcRenderer.on("atalho-iniciar-parar", () => {
+  // cria evento de click na tela 
+  let click = new MouseEvent('click')
+  btnPlay.dispatchEvent(click)
+});

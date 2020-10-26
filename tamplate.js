@@ -33,11 +33,12 @@ module.exports = {
     let templateMenu = [
       {
         label: "View",
-        submenu: [{ role: "reload" }, 
-        { 
-          role: "toggledevtools",
-          accelerator: "CmdOrCtrl+D",
-        }
+        submenu: [
+          { role: "reload" },
+          {
+            role: "toggledevtools",
+            accelerator: "CmdOrCtrl+D",
+          },
         ],
       },
       {
@@ -47,7 +48,10 @@ module.exports = {
             role: "minimize",
             accelerator: "Alt+M",
           },
-          { role: "close" },
+          {
+            role: "close",
+            accelerator: "CmdOrCtrl+Q",
+          },
         ],
       },
       {

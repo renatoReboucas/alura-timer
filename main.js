@@ -1,7 +1,11 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const { ipcRenderer } = require('electron/renderer');
 const data = require('./data');
-const { geraTrayTemplate, adicionaCursoNoTray } = require("./tamplate");
+const {
+  geraTrayTemplate,
+  adicionaCursoNoTray,
+  geraMenuPrincipalTemplate,
+} = require("./tamplate");
 
 let tray = null
 let mainWindow = null
@@ -26,6 +30,10 @@ app.on('ready', () => {
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   // mainWindow.webContents.openDevTools()
+
+  let templateMenu = geraMenuPrincipalTemplate(app)
+  let menuPrincipal = Menu.buildFromTemplate(templateMenu)
+  Menu.setApplicationMenu(menuPrincipal)
 })
 
 app.on('window-all-closed', () => {

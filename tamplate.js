@@ -1,4 +1,5 @@
 const data = require('./data')
+const { ipcMain } = require('electron')
 module.exports = {
   templateInicial: null,
   geraTrayTemplate(win) {
@@ -28,4 +29,40 @@ module.exports = {
     });
     return this.tamplateInicial;
   },
+  geraMenuPrincipalTemplate(app){
+    let templateMenu = [
+      {
+        label: 'View',
+        submenu: [
+          {role: 'reload'},
+          {role: 'toggledevtools'}
+      ]
+      },
+      {
+        label: 'Window',
+        submenu: [
+          {role: 'minimize'},
+          {role: 'close'},
+        ]
+      },
+      {
+        label: "Meu menu",
+        submenu: [
+          { 
+            label: "Sobre o Alura Timer", 
+            click: () => {
+              ipcMain.emit("abrir-janela-sobre");
+            }
+          },
+        ],
+      },
+    ];
+    if (process.platform == "darwin") {
+      templateMenu.unshift({
+        label: app.getName(),
+        submenu: [{ label: "Estou rodando no Mac" }],
+      });
+    }
+    return templateMenu
+  }
 };
